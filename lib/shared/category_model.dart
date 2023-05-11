@@ -1,17 +1,26 @@
 class CategoryModel {
-  String? name;
-  String? id;
+  final String name;
+  final String id;
 
-  CategoryModel.fromJson(e) {
-    name = e['categoryName'];
-    id = e['categoryId'];
+  factory CategoryModel.fromJson(Map<String, dynamic> e) {
+    return CategoryModel(e['categoryName'], e['categoryId']);
   }
+
+  CategoryModel(this.name, this.id);
   toJson() {
-    Map<String, String> ret = {};
-    // print(name ?? "");
-    // print(id ?? "");
-    ret.putIfAbsent("categoryName", () => name!);
-    ret.putIfAbsent("categoryId", () => id!);
+    Map<String, dynamic> cat = {};
+    cat.putIfAbsent("categoryName", () => name);
+    cat.putIfAbsent("categoryId", () => id);
+
+    Map<String, dynamic> ret = {};
+    ret.putIfAbsent("category", () => cat);
     return ret;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CategoryModel &&
+          runtimeType == other.runtimeType &&
+          (id == other.id || name == other.name);
 }

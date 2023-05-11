@@ -5,8 +5,10 @@ class Province {
   Province({this.provinceCode, this.provinceName});
 
   Province.fromJson(Map<String, dynamic> json) {
+    // print(json);
     provinceCode = json['provinceCode'];
     provinceName = json['provinceName'];
+    print(provinceCode);
   }
 
   Map<String, dynamic> toJson() {

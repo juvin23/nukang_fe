@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static var lighterGrey;
+  static const lighterGrey = Color.fromARGB(212, 223, 226, 231);
+
+  static const buttonRed = Color.fromARGB(198, 220, 38, 38);
+
+  static const nearlyBlueText = Color(0xFF00B6F0);
 
   AppTheme._();
 
-  static const Color notWhite = Color(0xFFEDF0F2);
-  static const Color nearlyWhite = Color(0xFFFEFEFE);
+  static const Color notWhite = Color.fromARGB(255, 240, 240, 240);
+  static const Color nearlyWhite = Color.fromARGB(255, 255, 255, 255);
   static const Color nearlyBlue = Color(0xFF00B6F0);
   static const Color nearlyBlue05 = Color.fromRGBO(0, 182, 240, 0.5);
   static const Color darkerBlue = Color.fromARGB(255, 16, 124, 160);
@@ -14,10 +18,12 @@ class AppTheme {
   static const Color nearlyBlack = Color(0xFF213333);
   static const Color grey = Color(0xFF3A5160);
   static const Color dark_grey = Color(0xFF313A44);
+  static const Color indigo = Color.fromARGB(255, 82, 49, 125);
 
-  static const Color darkText = Color(0xFF253840);
+  static const Color darkText = Color.fromARGB(255, 16, 25, 29);
   static const Color darkerText = Color(0xFF17262A);
   static const Color lightText = Color(0xFF4A6572);
+  static const Color disableText = Color.fromARGB(255, 143, 155, 161);
   static const Color deactivatedText = Color(0xFF767676);
   static const Color dismissibleBackground = Color(0xFF364A54);
   static const Color chipBackground = Color(0xFFEEF1F3);
@@ -38,7 +44,7 @@ class AppTheme {
     // h4 -> display1
     fontFamily: fontName,
     fontWeight: FontWeight.bold,
-    fontSize: 36,
+    fontSize: 30,
     letterSpacing: 0.4,
     height: 0.9,
     color: darkerText,
@@ -47,7 +53,7 @@ class AppTheme {
   static const TextStyle headline = TextStyle(
     // h5 -> headline
     fontFamily: fontName,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w300,
     fontSize: 24,
     letterSpacing: 0.27,
     color: darkerText,
@@ -74,8 +80,8 @@ class AppTheme {
   static const TextStyle body2 = TextStyle(
     // body1 -> body2
     fontFamily: fontName,
-    fontWeight: FontWeight.w400,
-    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    fontSize: 15,
     letterSpacing: 0.2,
     color: darkText,
   );
@@ -83,7 +89,7 @@ class AppTheme {
   static const TextStyle body1 = TextStyle(
     // body2 -> body1
     fontFamily: fontName,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w700,
     fontSize: 16,
     letterSpacing: -0.05,
     color: darkText,
@@ -92,10 +98,36 @@ class AppTheme {
   static const TextStyle caption = TextStyle(
     // Caption -> caption
     fontFamily: fontName,
-    fontWeight: FontWeight.w400,
-    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    fontSize: 15,
     letterSpacing: 0.2,
-    color: lightText, // was lightText
+    color: darkText, // was lightText
+  );
+
+  static const captionDisabled = TextStyle(
+    fontFamily: fontName,
+    fontWeight: FontWeight.w500,
+    fontSize: 15,
+    letterSpacing: 0.2,
+    color: disableText, // was lightText
+  );
+
+  static const buttonTextM = TextStyle(
+    // body1 -> body2
+    fontFamily: fontName,
+    fontWeight: FontWeight.w500,
+    fontSize: 15,
+    letterSpacing: 0.2,
+    color: lighterGrey,
+  );
+
+  static const buttonTextDarkM = TextStyle(
+    // body1 -> body2
+    fontFamily: fontName,
+    fontWeight: FontWeight.w500,
+    fontSize: 15,
+    letterSpacing: 0.2,
+    color: darkText,
   );
 }
 

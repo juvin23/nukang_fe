@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:nukang_fe/environment.dart';
+import 'package:nukang_fe/helper/http_helper.dart';
 import 'package:nukang_fe/shared/province.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,12 +10,20 @@ class ProvinceService {
   final url = Environment.apiUrl;
 
   Future<List<Province>> getProvinces() async {
-    var uri = Uri.http(url, "/api/v1/provinces");
+    var uri = Uri.https(url, "/api/v1/mst/province");
     List<Province> provinces = [];
 
-    var response = await http.get(uri);
-    Iterable it = jsonDecode(response.body);
-    provinces = it.map((e) => Province.fromJson(e)).toList();
+    http.Response response = await HttpHelper.get(uri);
+    if (response.statusCode == 200) {
+      Iterable it = jsonDecode(response.body);
+      provinces = it.map((e) => Province.fromJson(e)).toList();
+      provinces.removeWhere((element) =>
+          element.provinceCode == null || element.provinceName == null);
+    } else if (response.statusCode == 404) {
+      throw "URL NOT FOUND";
+    } else if (response.statusCode == 403) {
+      throw "UNAUTHENTICATED";
+    }
     return Future.value(provinces);
   }
 

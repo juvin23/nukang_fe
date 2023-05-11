@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nukang_fe/helper/http_helper.dart';
+import 'package:nukang_fe/helper/image_service.dart';
 import 'package:nukang_fe/user/merchants/merchant_details.dart';
 import 'package:nukang_fe/user/merchants/model/merchant_model.dart';
 import 'package:nukang_fe/user/merchants/model/merchant_params.dart';
@@ -19,12 +22,10 @@ class _PopularListState extends State<PopularList>
   final MerchantService merchantService = MerchantService();
   List<MerchantModel> merchantList = [];
   AnimationController? animationController;
-  MerchantParams params = MerchantParams();
 
   @override
   void initState() {
     super.initState();
-    params = widget.params;
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
   }
@@ -76,26 +77,21 @@ class _PopularListState extends State<PopularList>
           children: [
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0xa08192ac),
-                    blurRadius: 11,
-                  ),
-                ],
+                color: AppTheme.white,
+                borderRadius: BorderRadius.circular(15),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Image.network(
-                  merchantService.getMerchantProfileImage(merchant.merchantId),
-                  height: 150,
-                  width: 150,
-                  fit: BoxFit.cover,
-                ),
+              child: CachedNetworkImage(
+                imageUrl: ImageService.getProfileImage(merchant.merchantId),
+                placeholder: (context, url) =>
+                    Image.asset("assets/user/userImage.png"),
+                errorWidget: (context, url, error) =>
+                    Image.asset('assets/user/userImage.png'),
+                height: 150,
+                width: 150,
+                fit: BoxFit.cover,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+            Container(
               child: getItemDetail(merchant),
             )
           ],
@@ -106,55 +102,55 @@ class _PopularListState extends State<PopularList>
 
   getItemDetail(MerchantModel merchant) {
     return Row(
+      mainAxisSize: MainAxisSize.max,
       children: [
-        Flexible(
+        Expanded(
           child: Column(
+            mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                merchant.merhcantName ?? "no name.",
+                merchant.merchantName ?? "no name.",
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               Text(
                 merchant.merchantProvince?.provinceName ?? "unknown",
                 style: const TextStyle(
-                    fontSize: 11,
+                    fontSize: 9,
                     fontWeight: FontWeight.bold,
                     color: AppTheme.lightText),
               ),
               Text(
-                merchant.description ??
-                    "Disini harusnya deskripsi dan gabisa overflow",
+                merchant.description ?? "",
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontSize: 9),
               )
             ],
           ),
         ),
-        SizedBox(
-            width: 20,
-            child: Column(
-              children: [
-                Image.asset(
-                  "assets/logos/star.png",
-                  width: 14,
-                  height: 14,
-                ),
-                Text(
-                  merchant.getRating(),
-                  style: const TextStyle(fontSize: 10),
-                ),
-              ],
-            ))
+        Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Image.asset(
+              "assets/logos/star.png",
+              width: 14,
+              height: 14,
+            ),
+            Text(
+              merchant.getRating(),
+              style: const TextStyle(fontSize: 10),
+            ),
+          ],
+        )
       ],
     );
   }
 
   Future<bool> getMerchants() async {
-    await merchantService.getMerchants(params).then(
-          (value) => merchantList = value,
-        );
+    await merchantService.getMerchants(widget.params).then((value) {
+      merchantList = value;
+    });
 
     return true;
   }
