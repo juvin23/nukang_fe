@@ -56,9 +56,9 @@ class MerchantService {
     var uri = Uri.https(apiUrl, "/api/v1/merchants/create");
     http.Response resp = await HttpHelper.post(uri, data);
     if (resp.statusCode != 200) {
-      log(resp.body);
       throw "Terjadi kesalahan. coba lagi";
     }
+
     return MerchantModel.fromJson(jsonDecode(resp.body));
     // print(jsonDecode(resp.body)['merchantId'].toString());
   }

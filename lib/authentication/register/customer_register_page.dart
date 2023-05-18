@@ -23,8 +23,14 @@ import 'package:nukang_fe/user/appuser/app_user.dart';
 import 'package:nukang_fe/user/customer/customer_service.dart';
 
 class CustomerRegistration extends StatefulWidget {
-  const CustomerRegistration({super.key, required this.customerId});
+  const CustomerRegistration(
+      {super.key,
+      required this.customerId,
+      required this.appUserId,
+      required this.token});
   final String customerId;
+  final String appUserId;
+  final String token;
 
   @override
   State<CustomerRegistration> createState() => _CustomerRegistrationState();
@@ -274,7 +280,7 @@ class _CustomerRegistrationState extends State<CustomerRegistration> {
                   setState(() {
                     _image = Image(
                       image: NetworkImage(
-                          '${ImageService.getProfileImage(AppUser.userId)}?rand=${Random().nextInt(100)}'),
+                          '${ImageService.getProfileImage(widget.appUserId)}?rand=${Random().nextInt(100)}'),
                     );
                     isImageUploaded = true;
                   });

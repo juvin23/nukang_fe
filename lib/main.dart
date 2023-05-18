@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
     ));
     return MaterialApp(
       title: 'nukang.com',
+      debugShowCheckedModeBanner: false,
       navigatorKey: Helper.getNavigationKey(),
       theme: ThemeData(
         primaryColor: const Color.fromARGB(255, 216, 224, 231),

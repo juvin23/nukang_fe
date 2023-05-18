@@ -47,6 +47,10 @@ class AppUserService {
       response = await HttpHelper.auth(uri, appUser);
 
       var resBody = jsonDecode(response.body);
+      if (resBody['accessToken'] == null) throw "email/kata sandi salah";
+      if (resBody['accessToken'].toString().trim() == "") {
+        throw "email/kata sandi salah";
+      }
       AppUser.token = resBody['accessToken'];
       AppUser.userId = resBody['uid'];
       AppUser.role = getRole(resBody);

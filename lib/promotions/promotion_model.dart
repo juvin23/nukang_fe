@@ -8,9 +8,8 @@ class Promotion {
   Promotion();
 
   Promotion.fromJson(e) {
-    id = e['id'];
-    desc = e['description'];
-    name = e['name'];
+    id = e['id'].toString();
+    desc = e['desc'];
     startDate = DateTime.parse(e['startDate']);
     endDate = DateTime.parse(e['endDate']);
   }

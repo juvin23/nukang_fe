@@ -43,7 +43,7 @@ class PromotionDetails extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
               Text(
-                promotion.name!,
+                promotion.name ?? "",
                 style: AppTheme.display1,
               ),
               Container(

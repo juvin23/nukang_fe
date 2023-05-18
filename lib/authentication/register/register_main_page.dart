@@ -152,8 +152,16 @@ class _RegistrationMain extends State<RegistrationMain> {
       if (AppUser.token == null) throw "Terjadi kesalahan silahkan coba lagi";
       Helper.pushAndReplace(
         widget.role == "customer"
-            ? CustomerRegistration(customerId: "")
-            : MerchantRegistration(merchantId: ""),
+            ? CustomerRegistration(
+                customerId: "",
+                appUserId: AppUser.userId!,
+                token: AppUser.token!,
+              )
+            : MerchantRegistration(
+                merchantId: "",
+                appUserId: AppUser.userId!,
+                token: AppUser.token!,
+              ),
       );
     } catch (er) {
       Helper.toast(er.toString(), 500, MotionToastPosition.top,

@@ -19,28 +19,31 @@ class PromotionCard extends StatefulWidget {
 }
 
 class _PromotionCardState extends State<PromotionCard> {
-  late Future<List<Promotion>> _imageList;
+  Future<List<Promotion>>? _imageList;
   String baseUrl = 'Https://${Environment.apiUrl}/api/v1/ads/get-ads';
 
   @override
   void initState() {
-    _imageList = getData();
+    getData();
     super.initState();
   }
 
-  Future<List<Promotion>> getData() async {
+  getData() async {
     Uri uri = Uri.https(Environment.apiUrl, '/api/v1/ads/get-ads');
-    await HttpHelper.get(uri).then((value) {
+    _imageList = HttpHelper.get(uri).then((value) {
       if (value.statusCode == 200) {
         Iterable it = jsonDecode(value.body);
-        return it.map(
-          (e) => Promotion.fromJson(
-            jsonDecode(e),
-          ),
-        );
+        List<Promotion> ret = it
+            .map(
+              (e) => Promotion.fromJson(
+                e,
+              ),
+            )
+            .toList();
+        return ret;
       }
+      return [];
     });
-    return [];
   }
 
   @override
@@ -54,36 +57,29 @@ class _PromotionCardState extends State<PromotionCard> {
     promotion.endDate = DateTime.parse("2023-05-10");
 
     return FutureBuilder(
-      future: _imageList,
-      builder: (context, snapshot) {
-        if (snapshot.data == null) {
-          return GFCarousel(
-            autoPlay: true,
-            height: 150,
-            items: List.generate(
-              3,
-              (index) => getBanner(promotion),
-            ),
-          );
-        } else {
-          if (snapshot.data!.isNotEmpty) {
-            return GFCarousel(
-              autoPlay: true,
-              height: 150,
-              items: snapshot.data!.map((e) => getBanner(e)).toList(),
-            );
+        future: _imageList,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container();
+          } else {
+            if (snapshot.data == null) {
+              return GFCarousel(
+                autoPlay: true,
+                height: 150,
+                items: List.generate(
+                  3,
+                  (index) => getBanner(promotion),
+                ),
+              );
+            } else {
+              return GFCarousel(
+                autoPlay: true,
+                height: 150,
+                items: snapshot.data!.map((e) => getBanner(e)).toList(),
+              );
+            }
           }
-          return GFCarousel(
-            autoPlay: true,
-            height: 150,
-            items: List.generate(
-              3,
-              (index) => getBanner(promotion),
-            ),
-          );
-        }
-      },
-    );
+        });
   }
 
   Widget getBanner(Promotion promotion) {

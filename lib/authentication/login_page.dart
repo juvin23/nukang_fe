@@ -157,11 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                         AppTheme.body1.copyWith(color: AppTheme.nearlyBlueText),
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterPage()),
-                    );
+                    Helper.pushAndReplace(const RegisterPage());
                   }),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.4,

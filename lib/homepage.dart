@@ -183,8 +183,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getPromotionsUI() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
+    return const Padding(
+      padding: EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 2,
       ),
@@ -225,7 +225,6 @@ class _HomePageState extends State<HomePage> {
             child: Image.asset(
               img.toLowerCase(),
               fit: BoxFit.fill,
-              color: AppTheme.white,
             ),
           ),
           Text(
@@ -466,10 +465,16 @@ class _HomePageState extends State<HomePage> {
                                           AppUser.role == Role.customer
                                               ? CustomerRegistration(
                                                   customerId:
-                                                      AppUser.userId ?? "")
+                                                      AppUser.userId ?? "",
+                                                  appUserId: "",
+                                                  token: "",
+                                                )
                                               : MerchantRegistration(
                                                   merchantId:
-                                                      AppUser.userId ?? ""),
+                                                      AppUser.userId ?? "",
+                                                  appUserId: "",
+                                                  token: "",
+                                                ),
                                         );
                                       }),
                                 ),
@@ -587,8 +592,8 @@ class _HomePageState extends State<HomePage> {
                     showBadge: (notifCount > 0),
                     badgeContent: Text(
                       notifCount.toString(),
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                      style: const TextStyle(
+                          fontSize: 10, fontWeight: FontWeight.w600),
                     ),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(45),

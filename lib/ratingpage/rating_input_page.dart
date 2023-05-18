@@ -208,7 +208,7 @@ class _RatingInputPageState extends State<RatingInputPage> {
                     return null;
                   },
                   controller: formController['review'],
-                  hintText: "Leave a comment",
+                  hintText: "Berikan komentar",
                   textInputAction: TextInputAction.done,
                   maxLines: 6,
                   isDisabled: _initRating > 0 || AppUser.role == Role.merchant,
@@ -273,8 +273,8 @@ class _RatingInputPageState extends State<RatingInputPage> {
       setState(() {
         isClick = null;
       });
-      Helper.toast(
-              "Review tidak boleh kosong", 200, MotionToastPosition.top, 300)
+      Helper.toast("Ulasan dan penilaian tidak boleh kosong", 200,
+              MotionToastPosition.top, 300)
           .show(context);
     }
     formController['merchantId']!.text = transaction.merchantId!;

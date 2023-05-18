@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nukang_fe/authentication/login_page.dart';
-import 'package:nukang_fe/helper/size_utils.dart';
-import 'package:nukang_fe/authentication/register/customer_register_page.dart';
-import 'package:nukang_fe/authentication/register/merchant_register_page.dart';
 import 'package:nukang_fe/authentication/register/register_main_page.dart';
 import 'package:nukang_fe/themes/app_theme.dart';
 

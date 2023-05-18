@@ -13,6 +13,7 @@ class MerchantModel {
   String? merchantAddress;
   String? number;
   Province? merchantProvince;
+  String? provinceCode;
   String? description;
   List<MerchantCategories>? category;
   City? merchantCity;
@@ -69,8 +70,9 @@ class MerchantModel {
     MerchantModel model = MerchantModel();
     model.merchantId = json['merchantId'];
     model.merchantName = json['name'];
-    model.merchantProvince = Province.fromJson(
-        json['province'] ?? {"provinceCode": "001", "provinceName": "Jakarta"});
+    // print(json['province'].toString());
+    if (json['province'] != null)
+      model.merchantProvince = Province.fromJson(json['province']);
     model.merchantRating = double.parse(json['rating'].toString());
     model.merchantRatingCount = json['ratingCount'];
     model.merchantAddress = json['address'];
@@ -79,7 +81,10 @@ class MerchantModel {
     model.merchantRating = json['rating'] ?? 0.0;
     Iterable cat = json['category'];
     model.category = cat.map((e) => MerchantCategories.fromJson(e)).toList();
-    model.merchantCity = City.fromJson(json['city']);
+    // if (json['cityCode'] != null) {
+    // print(json['city'].toString());
+    if (json['city'] != null) model.merchantCity = City.fromJson(json['city']);
+    // }
     return model;
   }
 
@@ -111,8 +116,10 @@ class MerchantCategories {
   MerchantCategories();
   factory MerchantCategories.fromJson(Map<String, dynamic> e) {
     MerchantCategories merchantCategories = MerchantCategories();
-    CategoryModel cat = CategoryModel.fromJson(e['category']);
-    merchantCategories.category = cat;
+    if (e['category'] != null) {
+      CategoryModel cat = CategoryModel.fromJson(e['category']);
+      merchantCategories.category = cat;
+    }
     return merchantCategories;
   }
 }

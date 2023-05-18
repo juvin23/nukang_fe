@@ -6,9 +6,9 @@ class City {
 
   City({this.cityCode, this.cityName});
 
-  City.fromJson(Map<String, dynamic> json) {
-    cityCode = json['cityCode'];
-    cityName = json['cityName'];
+  City.fromJson(e) {
+    cityCode = e['cityCode'];
+    cityName = e['cityName'];
   }
 
   Map<String, dynamic> toJson() {

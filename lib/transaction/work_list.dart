@@ -32,6 +32,7 @@ class _WorkListState extends State<WorkList> {
 
   @override
   Widget build(BuildContext context) {
+    final formatter = NumberFormat.decimalPattern();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.nearlyWhite,
@@ -75,7 +76,7 @@ class _WorkListState extends State<WorkList> {
                             ),
                             Expanded(
                               child: Text(
-                                "Total Pendapatan   : Rp. ${data != null ? data.total.toString() : "0.0"}",
+                                "Total Pendapatan   : Rp. ${data != null ? formatter.format(data.total) : "0.0"}",
                                 style: AppTheme.body1,
                               ),
                             )
